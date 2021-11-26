@@ -46,7 +46,7 @@ export class MainScene {
         });
         this.hero.sprite.once('die', () => {
             Globals.scene.start(new FinalScene(this.hero.score));
-        })
+        });
     }
 
     update(dt) {
