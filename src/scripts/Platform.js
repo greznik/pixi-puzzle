@@ -18,6 +18,24 @@ export class Platform {
     this.createTiles()
   }
 
+
+  checkCollision(hero) {
+    if (this.isCollideTop(hero)) {
+      hero.stayOnPlatform(this)
+    } else {
+      if (hero.platform === this) {
+        hero.platform = null
+      }
+    }
+  }
+
+  isCollideTop(hero) {
+    return hero.right >= this.left &&
+      hero.left <= this.right &&
+      hero.bottom <= this.top &&
+      hero.nextbottom >= this.top
+  }
+
   get left() {
     return this.container.x;
   }
@@ -27,11 +45,11 @@ export class Platform {
   }
 
   get top() {
-    this.container.y;
+    return this.container.y;
   }
 
   get bottom() {
-    this.top + this.height;
+    return this.top + this.height;
   }
 
   createContainer(x) {

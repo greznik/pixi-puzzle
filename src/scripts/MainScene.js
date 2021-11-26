@@ -2,6 +2,7 @@ import * as PIXI from "pixi.js";
 import { Globals } from "./Globals";
 import { Background } from "./Background";
 import { Platforms } from "./Platforms";
+import { Hero } from "./Hero";
 
 export class MainScene {
     constructor() {
@@ -12,6 +13,7 @@ export class MainScene {
         // });
         this.createBackground();
         this.createPlatforms();
+        this.createHero();
     }
 
     createBackground() {
@@ -24,8 +26,15 @@ export class MainScene {
         this.container.addChild(this.platforms.container);
     }
 
+    createHero() {
+        this.hero = new Hero();
+        this.container.addChild(this.hero.sprite)
+    }
+
     update(dt) {
         this.bg.update(dt);
+        this.platforms.checkCollision(this.hero);
         this.platforms.update(dt);
+        this.hero.update(dt)
     }
 }

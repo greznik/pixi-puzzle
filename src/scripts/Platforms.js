@@ -52,6 +52,12 @@ export class Platforms {
     })
   }
 
+  checkCollision(hero) {
+    this.platforms.forEach(platform => {
+      platform.checkCollision(hero);
+    })
+  }
+
   update(dt) {
     if (this.current.right < window.innerWidth) {
       this.createPlatform(this.randomData);
