@@ -1,10 +1,14 @@
 import * as PIXI from "pixi.js";
 import { Globals } from "./Globals";
+import { Diamond } from "./Diamond";
 
 const TileSize = 64;
 
 export class Platform {
   constructor(rows, cols, x) {
+    this.diamonds = [];
+    this.diamondsOffsetMin = 100;
+    this.diamondsOffsetMax = 200;
 
     this.dx = -2;
 
@@ -16,28 +20,27 @@ export class Platform {
 
     this.createContainer(x)
     this.createTiles()
+    this.createDiamonds()
   }
 
+  createDiamonds() {
+    const y = this.diamondsOffsetMin + Math.random() * (this.diamondsOffsetMax - this.diamondsOffsetMin);
 
-  checkCollision(hero) {
-    if (this.isCollideTop(hero)) {
-      hero.stayOnPlatform(this)
-    } else {
-      if (hero.platform === this) {
-        hero.platform = null
+    for (let i = 0; i < this.cols; i++) {
+      if (Math.random() < 0.4) {
+        const diamond = new Diamond(64 * i, -y);
+        this.container.addChild(diamond.sprite)
+        this.diamonds.push(diamond)
       }
     }
-  }
 
-  isCollideTop(hero) {
-    return hero.right >= this.left &&
-      hero.left <= this.right &&
-      hero.bottom <= this.top &&
-      hero.nextbottom >= this.top
   }
 
   get left() {
     return this.container.x;
+  }
+  get nextLeft() {
+    return this.left + this.dx;
   }
 
   get right() {
@@ -50,6 +53,34 @@ export class Platform {
 
   get bottom() {
     return this.top + this.height;
+  }
+
+  checkCollision(hero) {
+    if (this.isCollideTop(hero)) {
+      hero.stayOnPlatform(this)
+    } else {
+      if (hero.platform === this) {
+        hero.platform = null
+      }
+
+      if (this.isCollideLeft(hero)) {
+        hero.moveByPlatform(this)
+      }
+    }
+  }
+
+  isCollideTop(hero) {
+    return hero.right >= this.left &&
+      hero.left <= this.right &&
+      hero.bottom <= this.top &&
+      hero.nextbottom >= this.top
+  }
+
+  isCollideLeft(hero) {
+    return hero.bottom >= this.top &&
+      hero.top <= this.bottom &&
+      hero.right <= this.left &&
+      hero.right >= this.nextLeft
   }
 
   createContainer(x) {
