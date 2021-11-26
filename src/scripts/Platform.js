@@ -10,7 +10,7 @@ export class Platform {
     this.diamondsOffsetMin = 100;
     this.diamondsOffsetMax = 200;
 
-    this.dx = -2;
+    this.dx = -3;
 
     this.rows = rows;
     this.cols = cols;
@@ -67,6 +67,10 @@ export class Platform {
         hero.moveByPlatform(this)
       }
     }
+
+    this.diamonds.forEach((diamond) => {
+      diamond.checkCollision(hero)
+    })
   }
 
   isCollideTop(hero) {
