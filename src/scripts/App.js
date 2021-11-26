@@ -1,16 +1,26 @@
-import * as PIXI from "pixi.js"
-import { Loader } from "./Loader"
+import * as PIXI from "pixi.js";
+import TWEEN from "@tweenjs/tween.js";
+import { Loader } from "./Loader";
+import { MainScene } from "./MainScene";
 
 export class App {
-  run() {
-    this.app = new PIXI.Application({ resizeTo: window });
-    document.body.appendChild(this.app.view)
+    run() {
+        // create canvas
+        this.app = new PIXI.Application({ resizeTo: window });
+        document.body.appendChild(this.app.view);
 
-    this.loader = new Loader(this.app.loader);
-    this.loader.preload().then(() => { this.start() })
-  }
+        // load sprites
+        this.loader = new Loader(this.app.loader);
+        this.loader.preload().then(() => this.start());
+    }
 
-  start() {
-    console.log("started")
-  }
+    start() {
+        this.scene = new MainScene();
+        this.app.stage.addChild(this.scene.container);
+
+        this.app.ticker.add((dt) => {
+            this.scene.update(dt);
+        });
+
+    }
 }
