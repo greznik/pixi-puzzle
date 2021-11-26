@@ -29,6 +29,8 @@ export class MainScene {
 
     createBackground() {
         this.bg = new Background();
+
+        this.bg.height = window.innerHeight;
         this.container.addChild(this.bg.container);
     }
 

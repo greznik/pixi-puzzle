@@ -12,6 +12,7 @@ export class FinalScene {
     this.createLabelScore(amount);
     this.createText();
     this.container.interactive = true;
+    Globals.resources.music.sound.stop()
     this.container.once('pointerdown', () => {
       Globals.scene.start(new MainScene())
     })
