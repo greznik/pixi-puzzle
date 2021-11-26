@@ -6,5 +6,7 @@ export const LoaderConfig = {
     platform: require("../sprites/platform.png"),
     tile: require("../sprites/tile.png"),
     walk1: require("../sprites/walk1.png"),
-    walk2: require("../sprites/walk2.png")
+    walk2: require("../sprites/walk2.png"),
+    click: require("../sounds/click.mp3"),
+    music: require("../sounds/music.mp3"),
 };

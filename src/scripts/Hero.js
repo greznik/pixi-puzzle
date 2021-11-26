@@ -40,6 +40,7 @@ export class Hero {
 
   startJump() {
     if (this.platform || this.jumpIndex === 1) {
+      Globals.resources.click.sound.play();
       ++this.jumpIndex
       this.platform = null;
       this.dy = -18;
