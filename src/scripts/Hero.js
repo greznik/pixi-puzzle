@@ -71,5 +71,9 @@ export class Hero {
       ++this.dy;
       this.sprite.y += this.dy;
     }
+
+    if (this.sprite.y > window.innerHeight) {
+      this.sprite.emit('die')
+    }
   }
 }

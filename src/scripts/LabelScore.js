@@ -1,15 +1,16 @@
 import * as PIXI from "pixi.js";
 
 export class LabelScore extends PIXI.Text {
-  constructor() {
+  constructor(x = 10, y = 10, anchor = 0) {
     super();
-    this.x = 10;
-    this.y = 10;
+    this.x = x;
+    this.y = y;
+    this.anchor.set(anchor)
     this.style = {
       fontFamily: 'Verdana',
       fontWeight: 'bold',
       fontSize: 44,
-      fill: ['FF7F50']
+      fill: ['#FF7F50']
     };
     this.renderScore();
   }

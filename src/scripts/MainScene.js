@@ -4,6 +4,7 @@ import { Background } from "./Background";
 import { Platforms } from "./Platforms";
 import { Hero } from "./Hero";
 import { LabelScore } from "./LabelScore";
+import { FinalScene } from "./FinalScene";
 
 export class MainScene {
     constructor() {
@@ -42,6 +43,9 @@ export class MainScene {
         this.container.interactive = true;
         this.container.on('pointerdown', () => {
             this.hero.startJump()
+        });
+        this.hero.sprite.once('die', () => {
+            Globals.scene.start(new FinalScene(this.hero.score));
         })
     }
 
